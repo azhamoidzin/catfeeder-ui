@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { CommunicatorService, Feeder } from '../communicator.service';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { FeederDialogueComponent } from '../feeder-components/feeder-dialogue/feeder-dialogue.component';
 
 @Component({
@@ -36,10 +36,14 @@ export class ProfileComponentComponent {
   }
 
   addNewFeeder() {
-    let dialogRef = this.dialog.open(FeederDialogueComponent, {
-      // width: '400px',  // Set the width of the dialog
-      // height: 'auto',
-      panelClass: 'custom-dialog',
-    });
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.width = '400px';  // Set width to make sure it's centered
+    dialogConfig.position = {
+      top: '50%',
+      left: '50%'
+    };
+    dialogConfig.panelClass = 'custom-dialog-container';
+    let dialogRef = this.dialog.open(FeederDialogueComponent, dialogConfig);
   }
 }

@@ -1,6 +1,7 @@
 import {Component, Input} from '@angular/core';
 import { CommunicatorService, Feeder } from '../../communicator.service';
 import { AuthService } from '../../auth.service';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-feeder-instance',
@@ -10,7 +11,11 @@ import { AuthService } from '../../auth.service';
 export class FeederInstanceComponent {
   @Input({ required: true }) feeder: Feeder;
 
-  constructor(public authService: AuthService, private communicatorService: CommunicatorService) {
+  constructor(
+    public authService: AuthService,
+    private communicatorService: CommunicatorService,
+    public snackBar: MatSnackBar,
+    ) {
   }
 
 
@@ -34,6 +39,15 @@ export class FeederInstanceComponent {
 
     // Return the next time or null if there's no future time in the array
     return futureTimes.length > 0 ? futureTimes[0].time : null;
+  }
+
+  feedClick() {
+    let snackBarRef = this.snackBar.open(
+      'Successfully fed '+ this.feeder.name + ' by ' + this.feeder.meal, '', {
+        duration: 5 * 1000
+      }
+    );
+
   }
 
 }

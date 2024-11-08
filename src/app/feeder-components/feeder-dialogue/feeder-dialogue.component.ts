@@ -95,6 +95,7 @@ export class FeederDialogueComponent {
     };
     this.communicatorService.newFeeder(feeder).subscribe((response) => {
       console.log(response);
+      this.dialogRef.close(true);
     })
   }
 }

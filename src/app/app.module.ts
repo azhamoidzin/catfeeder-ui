@@ -11,8 +11,11 @@ import { ProfileComponentComponent } from './profile-component/profile-component
 import { FeederInstanceComponent } from './feeder-components/feeder-instance/feeder-instance.component';
 import { FeederDialogueComponent } from './feeder-components/feeder-dialogue/feeder-dialogue.component';
 import { MatDialogModule } from '@angular/material/dialog';
-import {MatInput} from '@angular/material/input';
-import {MatButton} from '@angular/material/button';
+import { MatInput } from '@angular/material/input';
+import { MatButton } from '@angular/material/button';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 
 @NgModule({
@@ -22,7 +25,7 @@ import {MatButton} from '@angular/material/button';
     MainComponentComponent,
     ProfileComponentComponent,
     FeederInstanceComponent,
-    FeederDialogueComponent
+    FeederDialogueComponent,
   ],
   imports: [
     FormsModule,
@@ -32,6 +35,8 @@ import {MatButton} from '@angular/material/button';
     MatDialogModule,
     MatInput,
     MatButton,
+    MatSnackBarModule,
+    BrowserAnimationsModule
   ],
   providers: [
     {
