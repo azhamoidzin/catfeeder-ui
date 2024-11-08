@@ -8,13 +8,13 @@
   <!-- Middle Column -->
   <div class="middle-column">
     <div class="row">Tags: {{ feeder.tags }}</div>
-    <div class="row">Status: {{ feeder.status }}</div>
+    <div class="row">Meal: {{ feeder.meal }}</div>
     <div class="row">Next feeding: {{ findNext() }}</div>
   </div>
 
   <!-- Right Column -->
   <div class="right-column">
-    <img src="assets/images/pencil.png" alt="Edit feeder" class="column-icon">
+    <img src="assets/images/pencil.png" alt="Edit feeder" class="column-icon" (click)="editClick()">
     <img src="assets/images/pet-food.png" alt="Instant feed" class="column-icon" (click)="feedClick()">
     <img src="assets/images/notebook.png" alt="Check logs" class="column-icon">
   </div>

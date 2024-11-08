@@ -3,6 +3,8 @@ import { AuthService } from '../auth.service';
 import { CommunicatorService, Feeder } from '../communicator.service';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { FeederDialogueComponent } from '../feeder-components/feeder-dialogue/feeder-dialogue.component';
+import {FeederService} from '../services/feeder.service';
+import {Subject, takeUntil} from 'rxjs';
 
 @Component({
   selector: 'app-profile-component',
@@ -13,21 +15,18 @@ export class ProfileComponentComponent {
   constructor(
     public authService: AuthService,
     private communicatorService: CommunicatorService,
-    private dialog: MatDialog) {
+    private dialog: MatDialog,
+    private feederService: FeederService) {
   }
+  destroy$ = new Subject<void>();
 
   username: string = "";
   fullName: string = "";
   email: string = "";
   feeders: Array<Feeder> = [];
 
-
-  ngOnInit() {
-    this.communicatorService.myProfile().subscribe((response) => {
-      this.username = response.username;
-      this.fullName = response.full_name;
-      this.email = response.email;
-    })
+  updateFeeders() {
+    this.feeders = [];
     this.communicatorService.myFeeders().subscribe((response) => {
       response.forEach(feeder => {
         this.feeders.push(feeder);
@@ -35,15 +34,27 @@ export class ProfileComponentComponent {
     })
   }
 
-  addNewFeeder() {
-    const dialogConfig = new MatDialogConfig();
+  ngOnInit() {
+    this.feederService.successData$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((v) => {
+        v && this.updateFeeders();
+      })
+    this.communicatorService.myProfile().subscribe((response) => {
+      this.username = response.username;
+      this.fullName = response.full_name;
+      this.email = response.email;
+    })
+    this.updateFeeders();
 
-    dialogConfig.width = '400px';  // Set width to make sure it's centered
-    dialogConfig.position = {
-      top: '50%',
-      left: '50%'
-    };
-    dialogConfig.panelClass = 'custom-dialog-container';
-    let dialogRef = this.dialog.open(FeederDialogueComponent, dialogConfig);
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
+
+  }
+  addNewFeeder() {
+    this.feederService.addFeeder();
   }
 }

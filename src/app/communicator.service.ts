@@ -61,4 +61,10 @@ export class CommunicatorService {
     )
   }
 
+  editFeederById(feeder: Feeder) {
+    return this.httpClient.put<any>(
+      this.myFeedersURL + '/' + feeder.feeder_id, feeder
+    )
+  }
+
 }

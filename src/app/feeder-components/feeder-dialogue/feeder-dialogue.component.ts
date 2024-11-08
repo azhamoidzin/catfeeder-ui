@@ -1,6 +1,6 @@
-import {Component} from '@angular/core';
-import {MatDialogRef} from '@angular/material/dialog';
-import {CommunicatorService, FeederBase} from '../../communicator.service';
+import {Component, Inject, Input} from '@angular/core';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {CommunicatorService, Feeder, FeederBase} from '../../communicator.service';
 
 @Component({
   selector: 'app-feeder-dialogue',
@@ -9,7 +9,10 @@ import {CommunicatorService, FeederBase} from '../../communicator.service';
 })
 export class FeederDialogueComponent {
 
-  feeder = {
+  title: string = 'Add new feeder';
+  buttonTitle: string = 'Add';
+
+  inputData = {
     name: '',
     tags: '',
     status: '',
@@ -19,12 +22,27 @@ export class FeederDialogueComponent {
   errorMsg: string = '';
 
   constructor(
+    @Inject(MAT_DIALOG_DATA) public feederInstance: Feeder,
     private dialogRef: MatDialogRef<FeederDialogueComponent>,
     public communicatorService: CommunicatorService,
   ) { }
 
-  closeDialog(): void {
-    this.dialogRef.close();
+  ngOnInit() {
+    console.log(this.feederInstance);
+    if (this.feederInstance) {
+      this.title = 'Edit feeder ' + this.feederInstance.feeder_id;
+      this.buttonTitle = 'Save changes';
+      this.inputData = {
+        name: this.feederInstance.name,
+        tags: this.feederInstance.tags.join(', '),
+        status: String(this.feederInstance.status),
+        schedule: this.feederInstance.schedule.join(', '),
+        meal: String(this.feederInstance.meal),
+      };
+    }
+  }
+  closeDialog(status: boolean): void {
+    this.dialogRef.close(status);
   }
 
   getItemsFromString(target: string) {
@@ -32,7 +50,7 @@ export class FeederDialogueComponent {
   }
 
   validateName() {
-    if (!this.feeder.name) {
+    if (!this.inputData.name) {
       this.errorMsg = 'Name must not be empty';
       return false;
     } else {
@@ -42,7 +60,7 @@ export class FeederDialogueComponent {
 
   validateMeal(): boolean {
     const integerPattern = /^[1-9]\d*$/;
-    if (!integerPattern.test(this.feeder.meal)) {
+    if (!integerPattern.test(this.inputData.meal)) {
       this.errorMsg = 'Meal must be positive integer greater than zero';
       return false;
     } else {
@@ -52,13 +70,13 @@ export class FeederDialogueComponent {
 
   validateStatus(): boolean {
     const floatPattern = /^(0(\.\d+)?|1(\.0+)?)$/;
-    return floatPattern.test(this.feeder.status);
+    return floatPattern.test(this.inputData.status);
   }
 
   validateSchedule(): boolean {
     const timePattern = /^([01]\d|2[0-3]):([0-5]\d)$/;
-    const timesArray = this.getItemsFromString(this.feeder.schedule);
-    if (!timesArray.every(time => timePattern.test(time)) || !this.feeder.schedule) {
+    const timesArray = this.getItemsFromString(this.inputData.schedule);
+    if (!timesArray.every(time => timePattern.test(time)) || !this.inputData.schedule) {
       this.errorMsg = 'Schedule must be valid times HH:MM divided by comma'
       return false;
     } else {
@@ -68,7 +86,7 @@ export class FeederDialogueComponent {
 
   validateTags(): boolean {
     const lettersPattern = /^([a-zA-Z]+)(,\s*[a-zA-Z]+)*$/;
-    if (this.feeder.tags && !lettersPattern.test(this.feeder.tags)) {
+    if (this.inputData.tags && !lettersPattern.test(this.inputData.tags)) {
       this.errorMsg = 'Tags must be words from alphabetical letters divided by comma';
       return false;
     } else {
@@ -80,22 +98,36 @@ export class FeederDialogueComponent {
     return this.validateName() && this.validateSchedule() && this.validateMeal() && this.validateTags();
   }
 
-  newFeeder() {
+  click() {
     const validFeeder = this.validateFeeder();
     if (!validFeeder) {
       return;
     }
     this.errorMsg = '';
-    const feeder: FeederBase = {
-      name: this.feeder.name,
-      tags: this.getItemsFromString(this.feeder.tags),
+    const feeder: Feeder = {
+      name: this.inputData.name,
+      tags: this.getItemsFromString(this.inputData.tags),
       status: 0,
-      schedule: this.getItemsFromString(this.feeder.schedule),
-      meal: Number(this.feeder.meal),
+      schedule: this.getItemsFromString(this.inputData.schedule),
+      meal: Number(this.inputData.meal),
+      feeder_id: this.feederInstance ? this.feederInstance.feeder_id : -1,
     };
-    this.communicatorService.newFeeder(feeder).subscribe((response) => {
-      console.log(response);
-      this.dialogRef.close(true);
-    })
+    if (!this.feederInstance) {
+      this.communicatorService.newFeeder(feeder).subscribe((response) => {
+        if (response) {
+          this.closeDialog(true);
+        } else {
+          this.closeDialog(false);
+        }
+      })
+    } else {
+      this.communicatorService.editFeederById(feeder).subscribe((response) => {
+        if (response) {
+          this.closeDialog(true);
+        } else {
+          this.closeDialog(false);
+        }
+      })
+    }
   }
 }
