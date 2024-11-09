@@ -1,4 +1,4 @@
-import {Component, Inject, Input} from '@angular/core';
+import {Component, ElementRef, Inject, Input, ViewChild} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {CommunicatorService, Feeder, FeederBase} from '../../communicator.service';
 
@@ -8,6 +8,7 @@ import {CommunicatorService, Feeder, FeederBase} from '../../communicator.servic
   styleUrl: './feeder-dialogue.component.scss'
 })
 export class FeederDialogueComponent {
+  @ViewChild('scheduleInput', { static: true }) scheduleInput: ElementRef;
 
   title: string = 'Add new feeder';
   buttonTitle: string = 'Add';
@@ -128,6 +129,30 @@ export class FeederDialogueComponent {
           this.closeDialog(false);
         }
       })
+    }
+  }
+
+  uploadSchedule() {
+    this.scheduleInput.nativeElement.click();
+  }
+
+  onFileSelected(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files[0]) {
+      const file = input.files[0];
+      const reader = new FileReader();
+
+      reader.onload = (e) => {
+        const content = e.target?.result;
+        if (!content) {
+          this.errorMsg = 'Invalid schedule file!';
+          return;
+        }
+        this.inputData.schedule = String(content);
+        this.validateSchedule();
+      };
+
+      reader.readAsText(file);
     }
   }
 }

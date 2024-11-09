@@ -67,4 +67,10 @@ export class CommunicatorService {
     )
   }
 
+  downloadScheduleById(feeder: Feeder) {
+    return this.httpClient.get(
+      this.myFeedersURL + '/' + feeder.feeder_id + '/schedule', { responseType: 'blob' }
+    )
+  }
+
 }

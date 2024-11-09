@@ -55,4 +55,17 @@ export class FeederInstanceComponent {
     );
   }
 
+  downloadScheduleClick() {
+    this.communicatorService.downloadScheduleById(this.feeder).subscribe(blob => {
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'schedule.catschedule';  // File name for download
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      window.URL.revokeObjectURL(url);
+    });
+  }
+
 }

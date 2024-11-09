@@ -51,3 +51,13 @@
   cursor: pointer;
   width: 40px; /* Adjust icon size as needed */
 }
+
+.download-schedule {
+  position: absolute;
+  right: 10%;
+  top: 52%;
+  transform: translateY(-50%);
+  cursor: pointer; /* Makes the image clickable */
+  width: 20px; /* Adjust size as needed */
+  height: 20px; /* Adjust size as needed */
+}
