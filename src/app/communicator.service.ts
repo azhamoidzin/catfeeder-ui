@@ -9,6 +9,19 @@ export interface FeederBase {
   meal: number;
 }
 
+export interface FamilyMember {
+  id: number;
+  name: string;
+  registration: string;
+}
+
+export interface Family {
+  id: number;
+  name: string;
+  members: Array<FamilyMember>;
+  admin: number;
+}
+
 export interface Feeder extends FeederBase {
   feeder_id: number;
 }
@@ -32,6 +45,8 @@ export class CommunicatorService {
 
   private myFeedersURL: string = this.myProfileURL + '/feeders';
 
+  private familyURL: string = this.serverURL + '/family';
+
 
   doLogin(username: string, password: string) {
     const body = new URLSearchParams();
@@ -45,13 +60,13 @@ export class CommunicatorService {
 
   myProfile() {
     return this.httpClient.get<any>(
-      this.myProfileURL, {headers: this.headers}
+      this.myProfileURL
     )
   }
 
   myFeeders() {
     return this.httpClient.get<Array<Feeder>>(
-      this.myFeedersURL, {headers: this.headers}
+      this.myFeedersURL
     )
   }
 
@@ -70,6 +85,12 @@ export class CommunicatorService {
   downloadScheduleById(feeder: Feeder) {
     return this.httpClient.get(
       this.myFeedersURL + '/' + feeder.feeder_id + '/schedule', { responseType: 'blob' }
+    )
+  }
+
+  myFamily() {
+    return this.httpClient.get<Family>(
+      this.familyURL
     )
   }
 

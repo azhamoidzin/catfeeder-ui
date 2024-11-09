@@ -16,6 +16,7 @@ import { MatButton } from '@angular/material/button';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { FamilyPageComponent } from './family-page/family-page.component';
 
 
 @NgModule({
@@ -26,6 +27,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     ProfileComponentComponent,
     FeederInstanceComponent,
     FeederDialogueComponent,
+    FamilyPageComponent,
   ],
   imports: [
     FormsModule,
