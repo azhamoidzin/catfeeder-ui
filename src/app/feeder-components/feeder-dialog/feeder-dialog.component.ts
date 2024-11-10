@@ -3,11 +3,11 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {CommunicatorService, Feeder, FeederBase} from '../../communicator.service';
 
 @Component({
-  selector: 'app-feeder-dialogue',
-  templateUrl: './feeder-dialogue.component.html',
-  styleUrl: './feeder-dialogue.component.scss'
+  selector: 'app-feeder-dialog',
+  templateUrl: './feeder-dialog.component.html',
+  styleUrl: './feeder-dialog.component.scss'
 })
-export class FeederDialogueComponent {
+export class FeederDialogComponent {
   @ViewChild('scheduleInput', { static: true }) scheduleInput: ElementRef;
 
   title: string = 'Add new feeder';
@@ -24,7 +24,7 @@ export class FeederDialogueComponent {
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public feederInstance: Feeder,
-    private dialogRef: MatDialogRef<FeederDialogueComponent>,
+    private dialogRef: MatDialogRef<FeederDialogComponent>,
     public communicatorService: CommunicatorService,
   ) { }
 

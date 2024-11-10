@@ -2,7 +2,7 @@ import { Component, Injectable } from '@angular/core';
 import {CommunicatorService, Feeder} from '../communicator.service';
 import {BehaviorSubject} from 'rxjs';
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
-import {FeederDialogueComponent} from '../feeder-components/feeder-dialogue/feeder-dialogue.component';
+import {FeederDialogComponent} from '../feeder-components/feeder-dialog/feeder-dialog.component';
 
 @Injectable({providedIn: 'root'})
 export class FeederService {
@@ -19,7 +19,7 @@ export class FeederService {
     this.successData$.next(false);
     const dialogConfig = new MatDialogConfig();
     dialogConfig.panelClass = 'custom-dialog-container';
-    let dialogRef = this.dialog.open(FeederDialogueComponent, dialogConfig);
+    let dialogRef = this.dialog.open(FeederDialogComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.successData$.next(true);
@@ -32,7 +32,7 @@ export class FeederService {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.panelClass = 'custom-dialog-container';
     dialogConfig.data = feeder;
-    let dialogRef = this.dialog.open(FeederDialogueComponent, dialogConfig);
+    let dialogRef = this.dialog.open(FeederDialogComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.successData$.next(true);
