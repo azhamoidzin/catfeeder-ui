@@ -18,6 +18,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { FamilyPageComponent } from './family-page/family-page.component';
 import { MatTableModule } from '@angular/material/table';
+import { UserDialogComponent } from './user-dialog/user-dialog.component';
 
 
 
@@ -30,6 +31,7 @@ import { MatTableModule } from '@angular/material/table';
     FeederInstanceComponent,
     FeederDialogComponent,
     FamilyPageComponent,
+    UserDialogComponent,
   ],
   imports: [
     FormsModule,

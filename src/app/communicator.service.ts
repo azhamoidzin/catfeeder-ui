@@ -22,6 +22,11 @@ export interface Family {
   admin: number;
 }
 
+export interface NewMember {
+  name: string;
+  email: string;
+}
+
 export interface Feeder extends FeederBase {
   feeder_id: number;
 }
@@ -94,9 +99,9 @@ export class CommunicatorService {
     )
   }
 
-  addFamilyMember() {
+  addFamilyMember(member: NewMember) {
     return this.httpClient.post(
-      this.familyURL, {}
+      this.familyURL, member
     )
   }
 }

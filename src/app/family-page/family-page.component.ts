@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { CommunicatorService, FamilyMember } from '../communicator.service';
 import { MatDialog } from '@angular/material/dialog';
-import { FeederService } from '../services/feeder.service';
+import {UserDialogComponent} from '../user-dialog/user-dialog.component';
 
 @Component({
   selector: 'app-family-page',
@@ -11,7 +11,8 @@ import { FeederService } from '../services/feeder.service';
 })
 export class FamilyPageComponent {
   constructor(
-    private communicatorService: CommunicatorService) {
+    private communicatorService: CommunicatorService,
+    private dialog: MatDialog,) {
   }
   displayedColumns: string[] = ['id', 'name', 'registration'];
   familyName: string = '';
@@ -27,8 +28,11 @@ export class FamilyPageComponent {
   }
 
   addMember() {
-    this.communicatorService.addFamilyMember().subscribe((response) => {
+    let dialogRef = this.dialog.open(UserDialogComponent);
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
 
+      }
     })
   }
 }
