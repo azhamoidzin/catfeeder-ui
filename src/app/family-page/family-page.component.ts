@@ -11,10 +11,9 @@ import { FeederService } from '../services/feeder.service';
 })
 export class FamilyPageComponent {
   constructor(
-    public authService: AuthService,
     private communicatorService: CommunicatorService) {
   }
-
+  displayedColumns: string[] = ['id', 'name', 'registration'];
   familyName: string = '';
   members: Array<FamilyMember> = [];
   adminId: number = -1;
@@ -25,5 +24,11 @@ export class FamilyPageComponent {
       this.members = response.members;
       this.adminId = response.admin;
     });
+  }
+
+  addMember() {
+    this.communicatorService.addFamilyMember().subscribe((response) => {
+
+    })
   }
 }

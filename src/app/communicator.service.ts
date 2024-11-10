@@ -38,7 +38,7 @@ export class CommunicatorService {
   });
 
   private serverURL: string = "http://127.0.0.1:8000";
-  private loginURL: string = this.serverURL + '/token';
+  private loginURL: string = this.serverURL + '/login';
 
   private usersURL: string = this.serverURL + '/users';
   private myProfileURL: string = this.usersURL + '/me';
@@ -94,4 +94,9 @@ export class CommunicatorService {
     )
   }
 
+  addFamilyMember() {
+    return this.httpClient.post(
+      this.familyURL, {}
+    )
+  }
 }

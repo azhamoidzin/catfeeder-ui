@@ -17,6 +17,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { FamilyPageComponent } from './family-page/family-page.component';
+import { MatTableModule } from '@angular/material/table';
+
 
 
 @NgModule({
@@ -39,7 +41,8 @@ import { FamilyPageComponent } from './family-page/family-page.component';
     MatButton,
     MatSnackBarModule,
     BrowserAnimationsModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatTableModule
   ],
   providers: [
     {
