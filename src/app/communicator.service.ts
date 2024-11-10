@@ -42,7 +42,7 @@ export class CommunicatorService {
     // 'Access-Control-Allow-Origin': '*'
   });
 
-  private serverURL: string = "http://127.0.0.1:8000";
+  private serverURL: string = "http://192.168.1.8:8000";
   private loginURL: string = this.serverURL + '/login';
 
   private usersURL: string = this.serverURL + '/users';
@@ -52,10 +52,12 @@ export class CommunicatorService {
 
   private familyURL: string = this.serverURL + '/family';
 
+  private setPasswordURL: string = this.serverURL + '/activate';
 
-  doLogin(username: string, password: string) {
+
+  doLogin(email: string, password: string) {
     const body = new URLSearchParams();
-    body.set('username', username);
+    body.set('username', email);
     body.set('password', password);
 
     return this.httpClient.post<any>(
@@ -102,6 +104,12 @@ export class CommunicatorService {
   addFamilyMember(member: NewMember) {
     return this.httpClient.post(
       this.familyURL, member
+    )
+  }
+
+  setPassword(token: string, registrationData: any) {
+    return this.httpClient.post(
+      this.setPasswordURL + '/' + token, registrationData
     )
   }
 }

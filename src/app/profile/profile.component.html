@@ -7,13 +7,14 @@
   </div>
 
   <div class="content-sections">
-    <!-- Left Bottom Section: Feeders -->
     <div class="feeders">
       <h3>Feeders</h3>
       <ul>
-        <li *ngFor="let feeder of feeders"><app-feeder-instance [feeder]="feeder"></app-feeder-instance> </li>
+        <li *ngFor="let feeder of feeders">
+          <app-feeder-instance [feeder]="feeder"></app-feeder-instance>
+        </li>
       </ul>
-      <div (click)="addNewFeeder()" class="open-dialog-div"> add new </div>
+      <div (click)="addNewFeeder()" class="open-dialog-div"> Add new </div>
     </div>
   </div>
 </div>

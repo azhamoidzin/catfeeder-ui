@@ -2,13 +2,15 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ProfileComponent } from './profile/profile.component';
 import { FamilyPageComponent } from './family-page/family-page.component';
+import { LoginPageComponent } from './login-page/login-page.component';
 
 const routes: Routes = [
+  { path: 'activate/:token', component: LoginPageComponent },
+  { path: 'login', component: LoginPageComponent },
   { path: 'profile', component: ProfileComponent },
   { path: 'family', component: FamilyPageComponent },
-  { path: 'register/:token', component: FamilyPageComponent },
-  { path: '', redirectTo: '/profile', pathMatch: 'full' }, // Redirect to profile by default
-  { path: '**', redirectTo: '/profile' } // Redirect unknown paths
+  { path: '', redirectTo: '/login', pathMatch: 'full' }, // Redirect to profile by default
+  { path: '**', redirectTo: '/login' } // Redirect unknown paths
 ];
 
 @NgModule({

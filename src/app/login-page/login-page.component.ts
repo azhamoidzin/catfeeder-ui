@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
-import { HttpClient, HttpHeaders  } from '@angular/common/http';
 import { CommunicatorService } from '../communicator.service';
 import { AuthService } from '../auth.service';
+import {ActivatedRoute, Router} from '@angular/router';
+import {MatDialog} from '@angular/material/dialog';
+import {UserDialogComponent} from '../user-dialog/user-dialog.component';
+import {RegistrationDialogComponent} from '../registration-dialog/registration-dialog.component';
 
 
 @Component({
@@ -13,16 +16,38 @@ export class LoginPageComponent {
   constructor(
     private authService: AuthService,
     private communicatorService: CommunicatorService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private dialog: MatDialog,
   ) {}
 
-  username: string = '';
+  email: string = '';
   password: string = '';
 
+  ngOnInit() {
+    this.route.paramMap.subscribe(params => {
+      const token = params.get('token');
+      console.log(token); // Should log the token value if it exists in the route
+      if (token) {
+        let dialogRef = this.dialog.open(RegistrationDialogComponent);
+        dialogRef.afterClosed().subscribe(result => {
+          if (result) {
+            this.communicatorService.setPassword(token, { password: result }).subscribe(result => {
+              console.log('Success!')
+            });
+          }
+        })
+      }
+    });
+
+  }
+
   onLoginClick(): void {
-    this.communicatorService.doLogin(this.username, this.password)
+    this.communicatorService.doLogin(this.email, this.password)
     .subscribe((response) => {
         if (response.access_token) {
           this.authService.setToken(response.access_token);
+          this.router.navigate(['profile'])
         }
       })
   }
