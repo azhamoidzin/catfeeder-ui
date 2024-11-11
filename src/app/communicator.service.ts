@@ -42,7 +42,7 @@ export class CommunicatorService {
     // 'Access-Control-Allow-Origin': '*'
   });
 
-  private serverURL: string = "http://192.168.1.8:8000";
+  private serverURL: string = "http://127.0.0.1:8000";
   private loginURL: string = this.serverURL + '/login';
 
   private usersURL: string = this.serverURL + '/users';

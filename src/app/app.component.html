@@ -1,11 +1,2 @@
-<main class="main">
-  <div class="content" *ngIf="!authService.isLogged()">
-    <app-login-page></app-login-page>
-  </div>
-  <div *ngIf="authService.isLogged()">
-    <app-main></app-main>
-  </div>
-</main>
-
-
+ <app-main></app-main>
 
