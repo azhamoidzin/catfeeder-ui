@@ -1,6 +1,6 @@
 import { Component, Injectable } from '@angular/core';
 import {CommunicatorService, Feeder} from '../communicator.service';
-import {BehaviorSubject} from 'rxjs';
+import {BehaviorSubject, Observable} from 'rxjs';
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import {FeederDialogComponent} from '../feeder-components/feeder-dialog/feeder-dialog.component';
 
@@ -37,6 +37,12 @@ export class FeederService {
       if (result) {
         this.successData$.next(true);
       }
+    })
+  }
+
+  getLogs(feeder: Feeder) {
+    this.communicatorService.getFeederLogs(feeder.feeder_id).subscribe((response: any) => {
+      console.log(response);
     })
   }
 }

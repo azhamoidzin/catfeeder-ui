@@ -54,6 +54,8 @@ export class CommunicatorService {
 
   private setPasswordURL: string = this.serverURL + '/activate';
 
+  private logsUrlBase: string = this.serverURL + '/logs';
+
 
   doLogin(email: string, password: string) {
     const body = new URLSearchParams();
@@ -110,6 +112,13 @@ export class CommunicatorService {
   setPassword(token: string, registrationData: any) {
     return this.httpClient.post(
       this.setPasswordURL + '/' + token, registrationData
+    )
+  }
+
+  getFeederLogs(feederId: number) {
+    return this.httpClient.get<any>(
+      this.serverURL + '/feeder/' + feederId + '/logs',
+      // this.logsUrlBase + '/' + feederId + '/logs',
     )
   }
 }
