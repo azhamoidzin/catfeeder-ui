@@ -1,6 +1,7 @@
 import {Component, ElementRef, Inject, Input, ViewChild} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {CommunicatorService, Feeder, FeederBase} from '../../communicator.service';
+import {AlertService} from '../../services/alert.service';
 
 @Component({
   selector: 'app-feeder-dialog',
@@ -26,6 +27,7 @@ export class FeederDialogComponent {
     @Inject(MAT_DIALOG_DATA) public feederInstance: Feeder,
     private dialogRef: MatDialogRef<FeederDialogComponent>,
     public communicatorService: CommunicatorService,
+    private alertService: AlertService,
   ) { }
 
   ngOnInit() {
@@ -125,6 +127,7 @@ export class FeederDialogComponent {
       this.communicatorService.editFeederById(feeder).subscribe((response) => {
         if (response) {
           this.closeDialog(true);
+          this.alertService.success('Success!', 'Feeder edited successfully', 'Yaaay!').subscribe((response) => {});
         } else {
           this.closeDialog(false);
         }

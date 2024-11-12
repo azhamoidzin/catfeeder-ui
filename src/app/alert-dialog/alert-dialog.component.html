@@ -1,0 +1,17 @@
+<div class="alert-dialog">
+  <div class="header">
+    <h2>{{ data.title }}</h2>
+  </div>
+  <div class="dialog-content">
+    <div class="icon-container">
+      <img [src]="getImage" alt="{{data.type}} icon" />
+    </div>
+    <div class="text-content">
+      <p>{{ data.text }}</p>
+    </div>
+  </div>
+  <div class="actions">
+    <button mat-button (click)="onClose(true)">{{ data.buttonText }}</button>
+    <button *ngIf="data.secondButtonText" mat-button (click)="onClose(false)">{{ data.secondButtonText }}</button>
+  </div>
+</div>

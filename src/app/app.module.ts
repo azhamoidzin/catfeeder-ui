@@ -20,6 +20,7 @@ import { FamilyPageComponent } from './family-page/family-page.component';
 import { MatTableModule } from '@angular/material/table';
 import { UserDialogComponent } from './user-dialog/user-dialog.component';
 import { RegistrationDialogComponent } from './registration-dialog/registration-dialog.component';
+import { AlertDialogComponent } from './alert-dialog/alert-dialog.component';
 
 
 
@@ -34,6 +35,7 @@ import { RegistrationDialogComponent } from './registration-dialog/registration-
     FamilyPageComponent,
     UserDialogComponent,
     RegistrationDialogComponent,
+    AlertDialogComponent,
   ],
   imports: [
     FormsModule,
