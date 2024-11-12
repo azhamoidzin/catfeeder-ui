@@ -55,6 +55,10 @@ export class FeederInstanceComponent {
     );
   }
 
+  logsClick() {
+    this.feederService.getLogs(this.feeder);
+  }
+
   downloadScheduleClick() {
     this.communicatorService.downloadScheduleById(this.feeder).subscribe(blob => {
       const url = window.URL.createObjectURL(blob);

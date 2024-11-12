@@ -2,16 +2,16 @@ import { Component } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { CommunicatorService, Feeder } from '../communicator.service';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { FeederDialogueComponent } from '../feeder-components/feeder-dialogue/feeder-dialogue.component';
+import { FeederDialogComponent } from '../feeder-components/feeder-dialog/feeder-dialog.component';
 import {FeederService} from '../services/feeder.service';
 import {Subject, takeUntil} from 'rxjs';
 
 @Component({
-  selector: 'app-profile-component',
-  templateUrl: './profile-component.component.html',
-  styleUrl: './profile-component.component.scss'
+  selector: 'app-profile',
+  templateUrl: './profile.component.html',
+  styleUrl: './profile.component.scss'
 })
-export class ProfileComponentComponent {
+export class ProfileComponent {
   constructor(
     public authService: AuthService,
     private communicatorService: CommunicatorService,

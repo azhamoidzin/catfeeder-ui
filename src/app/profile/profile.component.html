@@ -1,0 +1,22 @@
+<div class="profile-page">
+  <!-- Top Section: User Info -->
+  <div class="user-info">
+    <h2>{{ fullName }}</h2>
+    <p>{{ email }}</p>
+    <a routerLink="/family">Family</a>
+  </div>
+
+  <div class="content-sections">
+    <div class="feeders">
+      <h3>Feeders</h3>
+      <ul>
+        <li *ngFor="let feeder of feeders">
+          <app-feeder-instance [feeder]="feeder"></app-feeder-instance>
+        </li>
+      </ul>
+      <div (click)="addNewFeeder()" class="open-dialog-div"> Add new </div>
+    </div>
+  </div>
+</div>
+
+

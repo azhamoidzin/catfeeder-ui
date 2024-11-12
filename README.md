@@ -1,27 +1,79 @@
-# Catfeederui
+# catefeeder-ui (Frontend)
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.11.
+This project uses Docker Compose to set up and run containers. Follow the instructions below to install Docker and Docker Compose, and to build and run the project.
 
-## Development server
+## Prerequisites
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Before getting started, ensure you have the following installed:
 
-## Code scaffolding
+- Docker
+- Docker Compose
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Installation
 
-## Build
+### Docker
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+1. **Download and install Docker:**
 
-## Running unit tests
+  - **Windows/Mac:**
+    - Visit [Docker Desktop](https://www.docker.com/products/docker-desktop) and download the installer.
+    - Run the installer and follow the on-screen instructions.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+  - **Linux:**
+    - Follow the instructions specific to your distribution at [Docker's official documentation](https://docs.docker.com/engine/install/).
 
-## Running end-to-end tests
+2. **Verify Docker installation:**
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+   Open a terminal and run:
 
-## Further help
+   ```bash
+   docker --version
+   ```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+   You should see the Docker version printed out.
+
+### Docker Compose
+
+1. **Install Docker Compose:**
+
+  - Docker Compose is included with Docker Desktop for Windows and Mac.
+  - For Linux, follow the official guide: [Install Docker Compose](https://docs.docker.com/compose/install/).
+
+2. **Verify Docker Compose installation:**
+
+   Run the following command:
+
+   ```bash
+   docker-compose --version
+   ```
+
+   You should see the Docker Compose version printed out.
+
+## Building and Running the Project
+
+1. **Clone the repository:**
+
+   ```bash
+   git clone https://github.com/azhamoidzin/catfeeder-ui.git
+   cd catfeeder-ui
+   ```
+
+2. **Build and run the containers:**
+
+   Execute the following command in the project directory:
+
+   ```bash
+   docker-compose up --build
+   ```
+
+   This command builds the images and starts the containers as specified in the `docker-compose.yml` file.
+
+3. **Access the application:**
+
+   Once the containers are running, access the application via:
+
+   ```plaintext
+   http://localhost:your_port
+   ```
+
+   Replace `your_port` with the appropriate port number specified in your `docker-compose.yml` (`80` by default).
