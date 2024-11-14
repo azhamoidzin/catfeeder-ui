@@ -44,6 +44,7 @@ export class CommunicatorService {
 
   private serverURL: string = "http://127.0.0.1:8000";
   private loginURL: string = this.serverURL + '/login';
+  private registerURL: string = this.serverURL + '/register';
 
   private usersURL: string = this.serverURL + '/users';
   private myProfileURL: string = this.usersURL + '/me';
@@ -105,7 +106,7 @@ export class CommunicatorService {
 
   addFamilyMember(member: NewMember) {
     return this.httpClient.post(
-      this.familyURL, member
+      this.registerURL, member
     )
   }
 
