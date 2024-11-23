@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MatDialogRef} from '@angular/material/dialog';
+import { MatDialogRef } from '@angular/material/dialog';
 import { CommunicatorService } from '../communicator.service';
 
 @Component({
@@ -8,12 +8,14 @@ import { CommunicatorService } from '../communicator.service';
   styleUrl: './registration-dialog.component.scss'
 })
 export class RegistrationDialogComponent {
-  title: string = 'Add new family member';
+
+  title: string = 'Register new account and family';
   buttonTitle: string = 'Add';
 
   inputData = {
-    password: '',
-    passwordRepeat: '',
+    name: '',
+    email: '',
+    familyName: '',
   };
   errorMsg: string = '';
 
@@ -24,27 +26,40 @@ export class RegistrationDialogComponent {
 
   ngOnInit() {
   }
+  closeDialog(status: boolean): void {
+    this.dialogRef.close(status);
+  }
 
-  validatePasswords() {
-    if (!this.inputData.password) {
-      this.errorMsg = 'Password must not be empty';
+  validateName() {
+    if (!this.inputData.name) {
+      this.errorMsg = 'Name must not be empty';
       return false;
     } else {
       return true;
     }
   }
 
-  passwordsMatch() {
-    if (this.inputData.password == this.inputData.passwordRepeat) {
-      return true;
-    } else {
-      this.errorMsg = 'Password must match';
+  validateFamilyName() {
+    if (!this.inputData.familyName) {
+      this.errorMsg = 'Family name must not be empty';
       return false;
+    } else {
+      return true;
+    }
+  }
+
+  validateEmail(): boolean {
+    const emailPattern = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+    if (!emailPattern.test(this.inputData.email)) {
+      this.errorMsg = 'Invalid email';
+      return false;
+    } else {
+      return true;
     }
   }
 
   validateInput() {
-    return this.validatePasswords() && this.passwordsMatch();
+    return this.validateName() && this.validateEmail() && this.validateFamilyName();
   }
 
   click() {
@@ -53,9 +68,18 @@ export class RegistrationDialogComponent {
       return;
     }
     this.errorMsg = '';
-    const registrationData = {
-      password: this.inputData.password,
+    const member = {
+      name: this.inputData.name,
+      email: this.inputData.email,
+      family_name: this.inputData.familyName,
     };
-    this.dialogRef.close(this.inputData.password);
+
+    this.communicatorService.register(member).subscribe((response) => {
+      if (response) {
+        this.closeDialog(true);
+      } else {
+        this.closeDialog(false);
+      }
+    })
   }
 }

@@ -1,0 +1,51 @@
+.dialog-box {
+  max-width: 400px;
+  padding: 20px;
+}
+.form-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+label {
+  width: 80px;
+  margin-right: 10px;
+}
+input {
+  flex: 1;
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+button {
+  margin-top: 10px;
+}
+
+.open-dialog-div {
+  padding: 10px;
+  background-color: #007BFF;
+  color: white;
+  text-align: center;
+  width: 200px;
+  margin: 20px auto;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.error-message {
+  color: red;
+}
+
+.input-with-img img {
+  position: absolute;
+  right: 10%;
+  top: 52%;
+  transform: translateY(-50%);
+  cursor: pointer; /* Makes the image clickable */
+  width: 20px; /* Adjust size as needed */
+  height: 20px; /* Adjust size as needed */
+}
+.input-with-img input {
+  padding-right: 40px;
+}

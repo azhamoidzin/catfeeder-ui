@@ -3,7 +3,7 @@ import { CommunicatorService } from '../communicator.service';
 import { AuthService } from '../auth.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {MatDialog} from '@angular/material/dialog';
-import {UserDialogComponent} from '../user-dialog/user-dialog.component';
+import {ActivationDialogComponent} from '../activation-dialog/activation-dialog.component';
 import {RegistrationDialogComponent} from '../registration-dialog/registration-dialog.component';
 
 
@@ -29,7 +29,7 @@ export class LoginPageComponent {
       const token = params.get('token');
       console.log(token); // Should log the token value if it exists in the route
       if (token) {
-        let dialogRef = this.dialog.open(RegistrationDialogComponent);
+        let dialogRef = this.dialog.open(ActivationDialogComponent);
         dialogRef.afterClosed().subscribe(result => {
           if (result) {
             this.communicatorService.setPassword(token, { password: result }).subscribe(result => {
@@ -50,5 +50,14 @@ export class LoginPageComponent {
           this.router.navigate(['profile'])
         }
       })
+  }
+
+  onRegisterClick() {
+    let dialogRef = this.dialog.open(RegistrationDialogComponent);
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+
+      }
+    })
   }
 }

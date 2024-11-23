@@ -1,6 +1,6 @@
-import {Component, ElementRef, Inject, ViewChild} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {CommunicatorService, Feeder} from '../communicator.service';
+import { Component } from '@angular/core';
+import { MatDialogRef } from '@angular/material/dialog';
+import { CommunicatorService } from '../communicator.service';
 
 @Component({
   selector: 'app-user-dialog',
@@ -63,7 +63,7 @@ export class UserDialogComponent {
       email: this.inputData.email,
     };
 
-    this.communicatorService.addFamilyMember(member).subscribe((response) => {
+    this.communicatorService.addNewFamilyMember(member).subscribe((response) => {
       if (response) {
         this.closeDialog(true);
       } else {

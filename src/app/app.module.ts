@@ -19,8 +19,9 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { FamilyPageComponent } from './family-page/family-page.component';
 import { MatTableModule } from '@angular/material/table';
 import { UserDialogComponent } from './user-dialog/user-dialog.component';
-import { RegistrationDialogComponent } from './registration-dialog/registration-dialog.component';
+import { ActivationDialogComponent } from './activation-dialog/activation-dialog.component';
 import { AlertDialogComponent } from './alert-dialog/alert-dialog.component';
+import { RegistrationDialogComponent } from './registration-dialog/registration-dialog.component';
 
 
 
@@ -34,6 +35,7 @@ import { AlertDialogComponent } from './alert-dialog/alert-dialog.component';
     FeederDialogComponent,
     FamilyPageComponent,
     UserDialogComponent,
+    ActivationDialogComponent,
     RegistrationDialogComponent,
     AlertDialogComponent,
   ],

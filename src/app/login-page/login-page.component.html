@@ -3,5 +3,5 @@
     <input type="text" placeholder="Username" [(ngModel)]="email" (keyup.enter)="onLoginClick()"><br>
     <input type="password" placeholder="Password" [(ngModel)]="password"  (keyup.enter)="onLoginClick()"><br>
   <button (click)="onLoginClick()">Login</button>
-  <button>Register</button>
+  <button (click)="onRegisterClick()">Register</button>
 </div>

@@ -22,9 +22,13 @@ export interface Family {
   admin: number;
 }
 
-export interface NewMember {
+export interface NewFamilyMember {
   name: string;
   email: string;
+}
+
+export interface NewAdminMember extends NewFamilyMember {
+  family_name: string;
 }
 
 export interface Feeder extends FeederBase {
@@ -49,7 +53,7 @@ export class CommunicatorService {
   private usersURL: string = this.serverURL + '/users';
   private myProfileURL: string = this.usersURL + '/me';
 
-  private myFeedersURL: string = this.myProfileURL + '/feeders';
+  private feedersURL: string = this.serverURL + '/feeders';
 
   private familyURL: string = this.serverURL + '/family';
 
@@ -76,25 +80,25 @@ export class CommunicatorService {
 
   myFeeders() {
     return this.httpClient.get<Array<Feeder>>(
-      this.myFeedersURL
+      this.feedersURL
     )
   }
 
   newFeeder(feederBase: FeederBase) {
-    return this.httpClient.post<any>(
-      this.myFeedersURL, feederBase
+    return this.httpClient.put<any>(
+      this.feedersURL, feederBase
     )
   }
 
   editFeederById(feeder: Feeder) {
-    return this.httpClient.put<any>(
-      this.myFeedersURL + '/' + feeder.feeder_id, feeder
+    return this.httpClient.post<any>(
+      this.feedersURL + '/' + feeder.feeder_id, feeder
     )
   }
 
   downloadScheduleById(feeder: Feeder) {
     return this.httpClient.get(
-      this.myFeedersURL + '/' + feeder.feeder_id + '/schedule', { responseType: 'blob' }
+      this.feedersURL + '/' + feeder.feeder_id + '/schedule', { responseType: 'blob' }
     )
   }
 
@@ -104,9 +108,15 @@ export class CommunicatorService {
     )
   }
 
-  addFamilyMember(member: NewMember) {
+  register(member: NewAdminMember) {
     return this.httpClient.post(
       this.registerURL, member
+    )
+  }
+
+  addNewFamilyMember(member: NewFamilyMember) {
+    return this.httpClient.put(
+      this.usersURL, member
     )
   }
 
