@@ -1,25 +1,25 @@
 import {Component, ElementRef, Inject, Input, ViewChild} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {CommunicatorService, Feeder, FeederBase} from '../../communicator.service';
+import {CommunicatorService, FeederBase} from '../../communicator.service';
 import {AlertService} from '../../services/alert.service';
+import {Feeder, FeederUpdate} from '../../schemas';
 
 @Component({
-  selector: 'app-feeder-dialog',
+  selector: 'app-feeder-edit-dialog',
   templateUrl: './feeder-dialog.component.html',
   styleUrl: './feeder-dialog.component.scss'
 })
 export class FeederDialogComponent {
   @ViewChild('scheduleInput', { static: true }) scheduleInput: ElementRef;
 
-  title: string = 'Add new feeder';
-  buttonTitle: string = 'Add';
+  title: string = '';
+  buttonTitle: string = '';
 
   inputData = {
     name: '',
     tags: '',
-    status: '',
     schedule: '',
-    meal: '',
+    portion_meal: '',
   };
   errorMsg: string = '';
 
@@ -31,18 +31,14 @@ export class FeederDialogComponent {
   ) { }
 
   ngOnInit() {
-    console.log(this.feederInstance);
-    if (this.feederInstance) {
-      this.title = 'Edit feeder ' + this.feederInstance.feeder_id;
-      this.buttonTitle = 'Save changes';
-      this.inputData = {
-        name: this.feederInstance.name,
-        tags: this.feederInstance.tags.join(', '),
-        status: String(this.feederInstance.status),
-        schedule: this.feederInstance.schedule.join(', '),
-        meal: String(this.feederInstance.meal),
-      };
-    }
+    this.title = 'Edit feeder';
+    this.buttonTitle = 'Save changes';
+    this.inputData = {
+      name: this.feederInstance.name,
+      tags: this.feederInstance.tags.join(', '),
+      schedule: this.feederInstance.schedule.join(', '),
+      portion_meal: String(this.feederInstance.portion_meal | 0),
+    };
   }
   closeDialog(status: boolean): void {
     this.dialogRef.close(status);
@@ -63,17 +59,12 @@ export class FeederDialogComponent {
 
   validateMeal(): boolean {
     const integerPattern = /^[1-9]\d*$/;
-    if (!integerPattern.test(this.inputData.meal)) {
+    if (!integerPattern.test(this.inputData.portion_meal)) {
       this.errorMsg = 'Meal must be positive integer greater than zero';
       return false;
     } else {
       return true;
     }
-  }
-
-  validateStatus(): boolean {
-    const floatPattern = /^(0(\.\d+)?|1(\.0+)?)$/;
-    return floatPattern.test(this.inputData.status);
   }
 
   validateSchedule(): boolean {
@@ -107,32 +98,21 @@ export class FeederDialogComponent {
       return;
     }
     this.errorMsg = '';
-    const feeder: Feeder = {
+    const feeder: FeederUpdate = {
       name: this.inputData.name,
       tags: this.getItemsFromString(this.inputData.tags),
-      status: 0,
       schedule: this.getItemsFromString(this.inputData.schedule),
-      meal: Number(this.inputData.meal),
-      feeder_id: this.feederInstance ? this.feederInstance.feeder_id : -1,
+      portion_meal: Number(this.inputData.portion_meal),
+      current_meal: 0,
     };
-    if (!this.feederInstance) {
-      this.communicatorService.newFeeder(feeder).subscribe((response) => {
-        if (response) {
-          this.closeDialog(true);
-        } else {
-          this.closeDialog(false);
-        }
-      })
-    } else {
-      this.communicatorService.editFeederById(feeder).subscribe((response) => {
-        if (response) {
-          this.closeDialog(true);
-          this.alertService.success('Success!', 'Feeder edited successfully', 'Yaaay!').subscribe((response) => {});
-        } else {
-          this.closeDialog(false);
-        }
-      })
-    }
+    this.communicatorService.editFeederById(this.feederInstance.id, feeder).subscribe((response) => {
+      if (response) {
+        this.closeDialog(true);
+        this.alertService.success('Success!', 'Feeder edited successfully', 'Yaaay!').subscribe((response) => {});
+      } else {
+        this.closeDialog(false);
+      }
+    })
   }
 
   uploadSchedule() {

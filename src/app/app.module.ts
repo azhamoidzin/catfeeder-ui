@@ -9,7 +9,7 @@ import { AuthInterceptor } from './auth.interceptor';
 import { MainComponent } from './main/main.component';
 import { ProfileComponent } from './profile/profile.component';
 import { FeederInstanceComponent } from './feeder-components/feeder-instance/feeder-instance.component';
-import { FeederDialogComponent } from './feeder-components/feeder-dialog/feeder-dialog.component';
+import { FeederDialogComponent } from './feeder-components/feeder-edit-dialog/feeder-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatInput } from '@angular/material/input';
 import { MatButton } from '@angular/material/button';
@@ -22,6 +22,7 @@ import { UserDialogComponent } from './user-dialog/user-dialog.component';
 import { ActivationDialogComponent } from './activation-dialog/activation-dialog.component';
 import { AlertDialogComponent } from './alert-dialog/alert-dialog.component';
 import { RegistrationDialogComponent } from './registration-dialog/registration-dialog.component';
+import { FeederCreateDialogComponent } from './feeder-components/feeder-create-dialog/feeder-create-dialog.component';
 
 
 
@@ -38,6 +39,7 @@ import { RegistrationDialogComponent } from './registration-dialog/registration-
     ActivationDialogComponent,
     RegistrationDialogComponent,
     AlertDialogComponent,
+    FeederCreateDialogComponent,
   ],
   imports: [
     FormsModule,

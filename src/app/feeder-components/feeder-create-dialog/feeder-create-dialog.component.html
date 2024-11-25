@@ -1,0 +1,26 @@
+<h1 mat-dialog-title>{{ title }}</h1>
+<div mat-dialog-content>
+  <div class="form-group">
+    <label for="field1">Name</label>
+    <input matInput type="text" id="field1" name="field1" [(ngModel)]="inputData.name">
+  </div>
+  <div class="form-group">
+    <label for="field2">Type</label>
+    <input matInput type="text" id="field2" name="field2" [(ngModel)]="inputData.type">
+  </div>
+  <div class="form-group download">
+    <label for="field3">Maximum food capacity</label>
+    <input matInput type="text" id="field3" name="field3" [(ngModel)]="inputData.max_meal">
+  </div>
+  <div class="form-group">
+    <label for="field4">User ID</label>
+    <input matInput type="text" id="field4" name="field4" [(ngModel)]="inputData.user_id">
+  </div>
+  <div class="error-message">
+    {{ errorMsg }}
+  </div>
+</div>
+
+<div mat-dialog-actions>
+  <button mat-button (click)="click()">{{ buttonTitle }}</button>
+</div>

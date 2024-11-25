@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../auth.service';
-import { CommunicatorService, Feeder } from '../communicator.service';
+import { CommunicatorService } from '../communicator.service';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { FeederDialogComponent } from '../feeder-components/feeder-dialog/feeder-dialog.component';
+import { FeederDialogComponent } from '../feeder-components/feeder-edit-dialog/feeder-dialog.component';
 import {FeederService} from '../services/feeder.service';
 import {Subject, takeUntil} from 'rxjs';
+import { Feeder } from '../schemas';
 
 @Component({
   selector: 'app-profile',

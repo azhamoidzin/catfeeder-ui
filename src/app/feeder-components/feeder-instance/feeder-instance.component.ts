@@ -1,8 +1,9 @@
 import {Component, Input} from '@angular/core';
-import { CommunicatorService, Feeder } from '../../communicator.service';
+import { CommunicatorService } from '../../communicator.service';
 import { AuthService } from '../../auth.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {FeederService} from '../../services/feeder.service';
+import {Feeder} from '../../schemas';
 
 @Component({
   selector: 'app-feeder-instance',
@@ -24,7 +25,7 @@ export class FeederInstanceComponent {
 
   public findNext(): string | null { // TODO: next time strange
     // Convert the current time to minutes
-    const times = this.feeder.schedule;
+    const times = this.feeder.schedule || [];
     const now = new Date();
     const currentHour = now.getHours();
     const currentMinute = now.getMinutes();
@@ -49,7 +50,7 @@ export class FeederInstanceComponent {
 
   feedClick() {
     let snackBarRef = this.snackBar.open(
-      'Successfully fed '+ this.feeder.name + ' by ' + this.feeder.meal, '', {
+      'Successfully fed '+ this.feeder.name + ' by ' + this.feeder.portion_meal, '', {
         duration: 5 * 1000
       }
     );

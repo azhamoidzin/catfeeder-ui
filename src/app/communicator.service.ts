@@ -1,5 +1,7 @@
 import {Injectable} from "@angular/core";
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
+import {FeederCreate, FeederUpdate} from './schemas';
+import {Feeder} from './schemas';
 
 export interface FeederBase {
   name: string;
@@ -31,10 +33,11 @@ export interface NewAdminMember extends NewFamilyMember {
   family_name: string;
 }
 
-export interface Feeder extends FeederBase {
-  feeder_id: number;
+type Nullable<T> = T | null;
+interface GetLogsParams {
+  feeder_id?: Nullable<number>;
+  user_id?: Nullable<number>;
 }
-
 
 @Injectable({'providedIn': 'root'})
 export class CommunicatorService {
@@ -84,21 +87,21 @@ export class CommunicatorService {
     )
   }
 
-  newFeeder(feederBase: FeederBase) {
+  newFeeder(feederCreate: FeederCreate) {
     return this.httpClient.put<any>(
-      this.feedersURL, feederBase
+      this.feedersURL, feederCreate
     )
   }
 
-  editFeederById(feeder: Feeder) {
+  editFeederById(feeder_id: number, feederUpdate: FeederUpdate) {
     return this.httpClient.post<any>(
-      this.feedersURL + '/' + feeder.feeder_id, feeder
+      this.feedersURL + '/' + feeder_id, feederUpdate
     )
   }
 
   downloadScheduleById(feeder: Feeder) {
     return this.httpClient.get(
-      this.feedersURL + '/' + feeder.feeder_id + '/schedule', { responseType: 'blob' }
+      this.feedersURL + '/' + feeder.id + '/schedule', { responseType: 'blob' }
     )
   }
 
@@ -126,10 +129,21 @@ export class CommunicatorService {
     )
   }
 
-  getFeederLogs(feederId: number) {
+  getLogs({
+    feeder_id = null,
+    user_id = null,
+  }: GetLogsParams) {
+    let params = new HttpParams();
+
+    if (user_id !== null) {
+      params = params.append('user_id', user_id);
+    }
+    if (feeder_id !== null) {
+      params = params.append('feeder_id', feeder_id);
+    }
+    console.log(params)
     return this.httpClient.get<any>(
-      this.serverURL + '/feeder/' + feederId + '/logs',
-      // this.logsUrlBase + '/' + feederId + '/logs',
+      this.logsUrlBase, { params: params }
     )
   }
 }

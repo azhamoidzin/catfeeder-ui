@@ -1,10 +1,25 @@
-export interface FeederBase {
+export interface FeederCreate {
   type: number;
   name: string;
   user_id: number;
+  max_meal: number;
+}
+
+export interface FeederUpdate {
+  name: string;
   tags: Array<string>;
   schedule: Array<string>;
-  max_meal: number;
+  portion_meal: number;
+  current_meal: number;
+}
+
+export interface Feeder extends FeederCreate {
+  id: number;
+  tags: Array<string>;
+  schedule: Array<string>;
+  current_meal: number;
+  portion_meal: number;
+  configured: boolean;
 }
 
 export interface FamilyMember {
@@ -29,6 +44,3 @@ export interface NewAdminMember extends NewFamilyMember {
   family_name: string;
 }
 
-export interface Feeder extends FeederBase {
-  feeder_id: number;
-}
