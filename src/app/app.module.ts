@@ -25,6 +25,7 @@ import { RegistrationDialogComponent } from './registration-dialog/registration-
 import { FeederCreateDialogComponent } from './feeder-components/feeder-create-dialog/feeder-create-dialog.component';
 import { HeaderComponent } from './header/header.component';
 import { LogsDialogComponent } from './logs-dialog/logs-dialog.component';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 
 
@@ -63,7 +64,8 @@ import { LogsDialogComponent } from './logs-dialog/logs-dialog.component';
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
       multi: true
-    }
+    },
+    provideAnimationsAsync()
   ],
   bootstrap: [AppComponent]
 })
