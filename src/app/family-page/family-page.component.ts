@@ -4,6 +4,7 @@ import { CommunicatorService, FamilyMember } from '../communicator.service';
 import { MatDialog } from '@angular/material/dialog';
 import {UserDialogComponent} from '../user-dialog/user-dialog.component';
 import {User} from '../schemas';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-family-page',
@@ -13,7 +14,9 @@ import {User} from '../schemas';
 export class FamilyPageComponent {
   constructor(
     private communicatorService: CommunicatorService,
-    private dialog: MatDialog,) {
+    private dialog: MatDialog,
+    private route: ActivatedRoute,
+    private router: Router,) {
   }
   displayedColumns: string[] = ['id', 'name', 'registration'];
   familyName: string = '';
@@ -42,6 +45,9 @@ export class FamilyPageComponent {
   }
 
   memberClick(row: FamilyMember) {
-
+    if (!this.myself.family_admin) {
+      return;
+    }
+    this.router.navigate(['profile', row.id]);
   }
 }

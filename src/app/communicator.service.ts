@@ -82,6 +82,12 @@ export class CommunicatorService {
     )
   }
 
+  getProfile(userId: number) {
+    return this.httpClient.get<User>(
+      this.usersURL + '/' + userId
+    )
+  }
+
   myFeeders(userId: number | null = null) {
     const params = userId !== null ? new HttpParams().set('user_id', String(userId)) : {};
     return this.httpClient.get<Array<Feeder>>(

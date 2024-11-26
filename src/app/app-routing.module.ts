@@ -9,6 +9,7 @@ const routes: Routes = [
   { path: 'activate/:token', component: LoginPageComponent },
   { path: 'login', component: LoginPageComponent },
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
+  { path: 'profile/:user_id', component: ProfileComponent, canActivate: [AuthGuard] },
   { path: 'family', component: FamilyPageComponent, canActivate: [AuthGuard] },
   { path: '', redirectTo: '/login', pathMatch: 'full' }, // Redirect to profile by default
   { path: '**', redirectTo: '/login' } // Redirect unknown paths

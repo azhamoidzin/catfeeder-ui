@@ -6,6 +6,8 @@ import { FeederDialogComponent } from '../feeder-components/feeder-edit-dialog/f
 import {FeederService} from '../services/feeder.service';
 import {Subject, takeUntil} from 'rxjs';
 import { Feeder } from '../schemas';
+import {ActivationDialogComponent} from '../activation-dialog/activation-dialog.component';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -17,7 +19,9 @@ export class ProfileComponent {
     public authService: AuthService,
     private communicatorService: CommunicatorService,
     private dialog: MatDialog,
-    private feederService: FeederService) {
+    private feederService: FeederService,
+    private route: ActivatedRoute,
+    private router: Router,) {
   }
   destroy$ = new Subject<void>();
 
@@ -43,13 +47,27 @@ export class ProfileComponent {
       .subscribe((v) => {
         v && this.updateFeeders();
       });
-    this.communicatorService.myProfile().subscribe((response) => {
-      this.id = response.id;
-      this.name = response.name;
-      this.email = response.email;
-      this.familyAdmin = response.family_admin;
-      this.updateFeeders();
+    this.route.paramMap.subscribe(params => {
+      const userId = Number(params.get('user_id'));
+      if (userId) {
+        this.communicatorService.getProfile(userId).subscribe((response) => {
+          this.id = response.id;
+          this.name = response.name;
+          this.email = response.email;
+          this.familyAdmin = response.family_admin;
+          this.updateFeeders();
+        });
+      } else {
+        this.communicatorService.myProfile().subscribe((response) => {
+          this.id = response.id;
+          this.name = response.name;
+          this.email = response.email;
+          this.familyAdmin = response.family_admin;
+          this.updateFeeders();
+        });
+      }
     });
+
     this.communicatorService.familyStatus().subscribe((response) => {
       console.log(response);
     });
