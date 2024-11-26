@@ -23,6 +23,7 @@ import { ActivationDialogComponent } from './activation-dialog/activation-dialog
 import { AlertDialogComponent } from './alert-dialog/alert-dialog.component';
 import { RegistrationDialogComponent } from './registration-dialog/registration-dialog.component';
 import { FeederCreateDialogComponent } from './feeder-components/feeder-create-dialog/feeder-create-dialog.component';
+import { HeaderComponent } from './header/header.component';
 
 
 
@@ -40,6 +41,7 @@ import { FeederCreateDialogComponent } from './feeder-components/feeder-create-d
     RegistrationDialogComponent,
     AlertDialogComponent,
     FeederCreateDialogComponent,
+    HeaderComponent,
   ],
   imports: [
     FormsModule,

@@ -24,6 +24,7 @@ export class ProfileComponent {
   id: number | null = null;
   name: string = "";
   email: string = "";
+  familyAdmin: boolean = false;
   feeders: Array<Feeder> = [];
 
   updateFeeders() {
@@ -41,13 +42,17 @@ export class ProfileComponent {
       .pipe(takeUntil(this.destroy$))
       .subscribe((v) => {
         v && this.updateFeeders();
-      })
+      });
     this.communicatorService.myProfile().subscribe((response) => {
       this.id = response.id;
       this.name = response.name;
       this.email = response.email;
+      this.familyAdmin = response.family_admin;
       this.updateFeeders();
-    })
+    });
+    this.communicatorService.familyStatus().subscribe((response) => {
+      console.log(response);
+    });
 
   }
 

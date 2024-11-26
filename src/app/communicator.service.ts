@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {FeederCreate, FeederUpdate} from './schemas';
-import { Feeder, FeedResponse, User, Log } from './schemas';
+import { Feeder, FeedResponse, User, Log, FamilyStatusResponse } from './schemas';
 
 export interface FeederBase {
   name: string;
@@ -59,6 +59,7 @@ export class CommunicatorService {
   private feedersURL: string = this.serverURL + '/feeders';
 
   private familyURL: string = this.serverURL + '/family';
+  private familyStatusURL: string = this.familyURL + '/status';
 
   private setPasswordURL: string = this.serverURL + '/activate';
 
@@ -115,6 +116,12 @@ export class CommunicatorService {
   myFamily() {
     return this.httpClient.get<Family>(
       this.familyURL
+    )
+  }
+
+  familyStatus() {
+    return this.httpClient.get<FamilyStatusResponse>(
+      this.familyStatusURL
     )
   }
 

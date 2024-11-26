@@ -59,6 +59,13 @@ export interface FeedResponse {
   amount: number;
 }
 
+export interface FamilyStatusResponse {
+  total_users: number;
+  total_feeders: number;
+  total_poured: number;
+  current_time: string;
+}
+
 export interface Log {
   id: number;
   family_id: number;
