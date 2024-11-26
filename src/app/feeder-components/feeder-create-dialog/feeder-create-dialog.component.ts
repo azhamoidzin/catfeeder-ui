@@ -4,6 +4,11 @@ import {CommunicatorService} from '../../communicator.service';
 import {AlertService} from '../../services/alert.service';
 import {FeederCreate} from '../../schemas';
 
+interface UserData {
+  userId: number;
+  userName: string;
+}
+
 @Component({
   selector: 'app-feeder-create-dialog',
   templateUrl: './feeder-create-dialog.component.html',
@@ -15,17 +20,21 @@ export class FeederCreateDialogComponent {
 
   inputData = {
     name: '',
-    user_id: '',
     max_meal: '',
     type: '',
   };
   errorMsg: string = '';
 
   constructor(
+    @Inject(MAT_DIALOG_DATA) public data: UserData,
     private dialogRef: MatDialogRef<FeederCreateDialogComponent>,
     public communicatorService: CommunicatorService,
     private alertService: AlertService,
   ) { }
+
+  ngOnInit() {
+    this.title = this.title + ' for ' + this.data.userName;
+  }
 
   closeDialog(status: boolean): void {
     this.dialogRef.close(status);
@@ -59,18 +68,8 @@ export class FeederCreateDialogComponent {
     }
   }
 
-  validateUserId(): boolean {
-    const integerPattern = /^[1-9]\d*$/;
-    if (!integerPattern.test(this.inputData.user_id)) {
-      this.errorMsg = 'User_id must be positive integer greater than zero';
-      return false;
-    } else {
-      return true;
-    }
-  }
-
   validateFeeder() {
-    return this.validateName() && this.validateUserId() && this.validateMeal() && this.validateType();
+    return this.validateName() && this.validateMeal() && this.validateType();
   }
 
   click() {
@@ -83,7 +82,7 @@ export class FeederCreateDialogComponent {
       name: this.inputData.name,
       max_meal: Number(this.inputData.max_meal),
       type: Number(this.inputData.type),
-      user_id: Number(this.inputData.user_id),
+      user_id: this.data.userId,
     };
     this.communicatorService.newFeeder(feeder).subscribe((response) => {
       if (response) {

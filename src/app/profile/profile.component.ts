@@ -62,6 +62,6 @@ export class ProfileComponent {
 
   }
   addNewFeeder() {
-    this.feederService.addFeeder();
+    this.feederService.addFeeder(this.id, this.name);
   }
 }

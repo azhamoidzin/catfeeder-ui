@@ -2,29 +2,32 @@
   <!-- Left Column -->
   <div class="left-column">
     <p>{{ feeder.name }}</p>
-    <img
+    <img *ngIf="feeder.configured"
       [src]="getBowlImage()" alt="Feeder icon" class="icon-below" (click)="refillClick()"
       matTooltip="Edit feeder" [matTooltipPosition]="'above'"
     />
-    <p> Food: {{ feeder.current_meal + '|' + feeder.max_meal }} </p>
+    <p *ngIf="feeder.configured"> Food: {{ feeder.current_meal + '|' + feeder.max_meal }} </p>
   </div>
 
   <!-- Middle Column -->
-  <div class="middle-column">
+  <div *ngIf="feeder.configured" class="middle-column">
     <div class="row">Tags: {{ feeder.tags }}</div>
     <div class="row">Meal: {{ feeder.portion_meal }}</div>
     <div class="row">Next feeding: {{ findNext() }}</div>
+  </div>
+  <div *ngIf="!feeder.configured" class="middle-column">
+    Feeder is not yet configured
   </div>
 
   <!-- Right Column -->
   <div class="right-column">
     <img src="assets/images/pencil.png" alt="Edit feeder" class="column-icon" (click)="editClick()"
          matTooltip="Edit feeder" [matTooltipPosition]="'right'">
-    <img src="assets/images/pet-food.png" alt="Instant feed" class="column-icon" (click)="feedClick()"
+    <img *ngIf="feeder.configured" src="assets/images/pet-food.png" alt="Instant feed" class="column-icon" (click)="feedClick()"
          matTooltip="Instant feed" [matTooltipPosition]="'right'">
-    <img src="assets/images/notebook.png" alt="Check logs" class="column-icon" (click)="logsClick()"
+    <img *ngIf="feeder.configured" src="assets/images/notebook.png" alt="Check logs" class="column-icon" (click)="logsClick()"
          matTooltip="Check logs" [matTooltipPosition]="'right'">
-    <img src="assets/images/download.png" alt="Download schedule" class="column-icon" (click)="downloadScheduleClick()"
+    <img *ngIf="feeder.configured" src="assets/images/download.png" alt="Download schedule" class="column-icon" (click)="downloadScheduleClick()"
          matTooltip="Download schedule" [matTooltipPosition]="'right'">
   </div>
 </div>

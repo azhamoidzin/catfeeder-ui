@@ -17,10 +17,11 @@ export class FeederService {
 
   successData$ = new BehaviorSubject<boolean>(false);
 
-  addFeeder(): void {
+  addFeeder(userId: number | null, userName: string): void {
     this.successData$.next(false);
     const dialogConfig = new MatDialogConfig();
     dialogConfig.panelClass = 'custom-dialog-container';
+    dialogConfig.data = { userId: userId, userName: userName }
     let dialogRef = this.dialog.open(FeederCreateDialogComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
