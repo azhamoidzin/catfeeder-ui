@@ -77,7 +77,7 @@ export class FeederInstanceComponent {
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = 'schedule.catschedule';  // File name for download
+      a.download = this.feeder.name + '.catschedule';  // File name for download
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
