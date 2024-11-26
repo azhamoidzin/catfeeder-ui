@@ -1,10 +1,12 @@
 <div class="profile-page">
   <!-- Top Section: User Info -->
   <div class="user-info">
-    <h2>{{ name }} profile</h2>
+    <h2>{{ name }} Profile</h2>
   </div>
 
+  <!-- Content Sections -->
   <div class="content-sections">
+    <!-- Feeders Section -->
     <div class="feeders">
       <h3>Feeders</h3>
       <ul>
@@ -12,9 +14,9 @@
           <app-feeder-instance [feeder]="feeder"></app-feeder-instance>
         </li>
       </ul>
-      <div *ngIf="familyAdmin" (click)="addNewFeeder()" class="open-dialog-div"> Add new </div>
+      <div *ngIf="familyAdmin" (click)="addNewFeeder()" class="open-dialog-div">
+        Add New
+      </div>
     </div>
   </div>
 </div>
-
-

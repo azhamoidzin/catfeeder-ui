@@ -1,37 +1,104 @@
-//.profile-page {
-//  display: flex;
-//  flex-direction: column;
-//  align-items: center;
-//  max-width: 800px;
-//  margin: 0 auto;
-//}
-//
-//.user-info {
-//  text-align: center;
-//  margin-bottom: 20px;
-//}
-//
-//.content-sections {
-//  align-items: center;
-//}
-//
-//.feeders,
-//.feeder-statuses {
-//  width: 60%;
-//}
-//
-.feeders ul,
-.feeder-statuses ul {
-  list-style: none;
+* {
+  margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
-//
-//.feeders li,
-//.feeder-statuses li {
-//  padding: 8px;
-//  border-bottom: 1px solid #ccc;
-//}
 
-.custom-dialog-container {
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f9;
+  color: #333;
+  margin: 0;
+}
 
+/* Header Styling */
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #6200ea;
+  padding: 10px 20px;
+  color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Profile Page Styling */
+.profile-page {
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 20px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* User Info Section */
+.user-info h2 {
+  font-size: 24px;
+  color: #6200ea;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Content Sections Styling */
+.content-sections {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Feeders Section */
+.feeders {
+  padding: 20px;
+  background-color: #f9f9fc;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+.feeders h3 {
+  font-size: 20px;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.feeders ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.feeders li {
+  margin-bottom: 10px;
+}
+
+/* Add New Feeder Button */
+.open-dialog-div {
+  margin-top: 15px;
+  padding: 10px 15px;
+  background-color: #6200ea;
+  color: white;
+  text-align: center;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.open-dialog-div:hover {
+  background-color: #3700b3;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .profile-page {
+    padding: 15px;
+  }
+
+  .feeders h3 {
+    font-size: 18px;
+  }
+
+  .open-dialog-div {
+    font-size: 13px;
+  }
 }
