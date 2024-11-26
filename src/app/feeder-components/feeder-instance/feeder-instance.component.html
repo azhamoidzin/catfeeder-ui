@@ -2,7 +2,10 @@
   <!-- Left Column -->
   <div class="left-column">
     <p>{{ feeder.name }}</p>
-    <img src="assets/images/food.png" alt="Feeder icon" class="icon-below">
+    <img
+      [src]="getBowlImage()" alt="Feeder icon" class="icon-below" (click)="refillClick()"
+      matTooltip="Edit feeder" [matTooltipPosition]="'above'"
+    />
     <p> Food: {{ feeder.current_meal + '|' + feeder.max_meal }} </p>
   </div>
 

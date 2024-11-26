@@ -113,6 +113,12 @@ export class CommunicatorService {
     )
   }
 
+  refillFeeder(feederId: number) {
+    return this.httpClient.post<boolean>(
+      this.feedersURL + '/' + feederId + '/refill', {}
+    )
+  }
+
   myFamily() {
     return this.httpClient.get<Family>(
       this.familyURL

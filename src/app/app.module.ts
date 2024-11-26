@@ -24,6 +24,7 @@ import { AlertDialogComponent } from './alert-dialog/alert-dialog.component';
 import { RegistrationDialogComponent } from './registration-dialog/registration-dialog.component';
 import { FeederCreateDialogComponent } from './feeder-components/feeder-create-dialog/feeder-create-dialog.component';
 import { HeaderComponent } from './header/header.component';
+import { LogsDialogComponent } from './logs-dialog/logs-dialog.component';
 
 
 
@@ -42,6 +43,7 @@ import { HeaderComponent } from './header/header.component';
     AlertDialogComponent,
     FeederCreateDialogComponent,
     HeaderComponent,
+    LogsDialogComponent,
   ],
   imports: [
     FormsModule,

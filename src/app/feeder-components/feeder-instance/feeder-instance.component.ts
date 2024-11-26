@@ -21,7 +21,19 @@ export class FeederInstanceComponent {
     ) {
   }
 
-
+  public getBowlImage(): string {
+    const basePath = 'assets/images/bowls';
+    const mealPercentage = this.feeder.current_meal / this.feeder.max_meal * 100;
+    if (mealPercentage >= 90) {
+      return `${basePath}/filled-bowl.png`;
+    } else if (mealPercentage >= 40 ) {
+      return `${basePath}/semi-filled-bowl.png`;
+    } else if (mealPercentage >= 10) {
+      return `${basePath}/almost-empty-bowl.png`;
+    } else {
+      return `${basePath}/empty-bowl.png`;
+    }
+  }
 
   public findNext(): string | null { // TODO: next time strange
     // Convert the current time to minutes
@@ -64,6 +76,24 @@ export class FeederInstanceComponent {
           }
         );
       }
+    })
+
+  }
+
+  refillClick() {
+    this.feederService.refillFeeder(this.feeder).subscribe((response) => {
+      let message;
+      if (response) {
+        message = 'Successfully refilled '+ this.feeder.name;
+        this.feederService.successData$.next(true);
+      } else {
+        message = 'Failed to refill ' + this.feeder.name;
+      }
+      let snackBarRef = this.snackBar.open(
+        message, '', {
+          duration: 5 * 1000
+        }
+      );
     })
 
   }
