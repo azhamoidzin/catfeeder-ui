@@ -85,3 +85,8 @@ body {
     font-size: 13px;
   }
 }
+
+.mat-mdc-row:hover {
+  background-color: gray;
+  cursor: pointer;
+}

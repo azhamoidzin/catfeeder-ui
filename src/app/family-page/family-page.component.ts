@@ -40,4 +40,8 @@ export class FamilyPageComponent {
       }
     })
   }
+
+  memberClick(row: FamilyMember) {
+
+  }
 }
