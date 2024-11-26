@@ -54,6 +54,7 @@ export class FeederInstanceComponent {
         let message: string;
         if (response.fed) {
           message = 'Successfully fed '+ this.feeder.name + ' by ' + response.amount;
+          this.feederService.successData$.next(true);
         } else {
           message = 'Failed to feed ' + this.feeder.name;
         }

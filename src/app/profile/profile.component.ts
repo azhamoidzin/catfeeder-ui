@@ -27,11 +27,12 @@ export class ProfileComponent {
   feeders: Array<Feeder> = [];
 
   updateFeeders() {
-    this.feeders = [];
+    const newFeeders: Array<Feeder> = [];
     this.communicatorService.myFeeders().subscribe((response) => {
       response.forEach(feeder => {
-        this.feeders.push(feeder);
+        newFeeders.push(feeder);
       })
+      this.feeders = newFeeders;
     })
   }
 

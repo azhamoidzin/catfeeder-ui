@@ -5,6 +5,15 @@ export interface FeederCreate {
   max_meal: number;
 }
 
+export interface User {
+  id: number;
+  email: string;
+  name: string;
+  disabled: boolean;
+  family_id: number;
+  registered_at: string;
+}
+
 export interface FeederUpdate {
   name: string;
   tags: Array<string>;
