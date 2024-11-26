@@ -31,6 +31,16 @@ export class LogsDialogComponent {
   }
 
   exportLogs() {
+    let element = document.createElement('a');
+    const text = this.data.map((log) => {return log.registered_at + ' | ' + log.log})
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text.join("\n")));
+    element.setAttribute('download', 'logs.txt');
 
+    element.style.display = 'none';
+    document.body.appendChild(element);
+
+    element.click();
+
+    document.body.removeChild(element);
   }
 }
