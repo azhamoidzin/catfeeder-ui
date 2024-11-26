@@ -11,6 +11,7 @@ export interface User {
   name: string;
   disabled: boolean;
   family_id: number;
+  family_admin: boolean;
   registered_at: string;
 }
 
@@ -56,4 +57,14 @@ export interface NewAdminMember extends NewFamilyMember {
 export interface FeedResponse {
   fed: boolean;
   amount: number;
+}
+
+export interface Log {
+  id: number;
+  family_id: number;
+  feeder_id: number;
+  user_id: number;
+  log: string;
+  meal_pored: number | null;
+  registered_at: string;
 }

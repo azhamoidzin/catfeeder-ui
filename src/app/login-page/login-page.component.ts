@@ -27,13 +27,11 @@ export class LoginPageComponent {
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
       const token = params.get('token');
-      console.log(token); // Should log the token value if it exists in the route
       if (token) {
         let dialogRef = this.dialog.open(ActivationDialogComponent);
         dialogRef.afterClosed().subscribe(result => {
           if (result) {
             this.communicatorService.setPassword(token, { password: result }).subscribe(result => {
-              console.log('Success!')
             });
           }
         })

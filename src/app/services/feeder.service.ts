@@ -48,7 +48,6 @@ export class FeederService {
 
   getLogs(feeder: Feeder) {
     this.communicatorService.getLogs({ feeder_id: feeder.id }).subscribe((response: any) => {
-      console.log(response);
     })
   }
 }

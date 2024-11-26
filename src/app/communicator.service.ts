@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {FeederCreate, FeederUpdate} from './schemas';
-import { Feeder, FeedResponse } from './schemas';
+import { Feeder, FeedResponse, User, Log } from './schemas';
 
 export interface FeederBase {
   name: string;
@@ -76,14 +76,15 @@ export class CommunicatorService {
   }
 
   myProfile() {
-    return this.httpClient.get<any>(
+    return this.httpClient.get<User>(
       this.myProfileURL
     )
   }
 
-  myFeeders() {
+  myFeeders(userId: number | null = null) {
+    const params = userId !== null ? new HttpParams().set('user_id', String(userId)) : {};
     return this.httpClient.get<Array<Feeder>>(
-      this.feedersURL
+      this.feedersURL, { params: params }
     )
   }
 
@@ -147,8 +148,7 @@ export class CommunicatorService {
     if (feeder_id !== null) {
       params = params.append('feeder_id', feeder_id);
     }
-    console.log(params)
-    return this.httpClient.get<any>(
+    return this.httpClient.get<Array<Log>>(
       this.logsUrlBase, { params: params }
     )
   }

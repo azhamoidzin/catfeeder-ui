@@ -21,14 +21,14 @@ export class ProfileComponent {
   }
   destroy$ = new Subject<void>();
 
-  username: string = "";
-  fullName: string = "";
+  id: number | null = null;
+  name: string = "";
   email: string = "";
   feeders: Array<Feeder> = [];
 
   updateFeeders() {
     const newFeeders: Array<Feeder> = [];
-    this.communicatorService.myFeeders().subscribe((response) => {
+    this.communicatorService.myFeeders(this.id).subscribe((response) => {
       response.forEach(feeder => {
         newFeeders.push(feeder);
       })
@@ -43,11 +43,11 @@ export class ProfileComponent {
         v && this.updateFeeders();
       })
     this.communicatorService.myProfile().subscribe((response) => {
-      this.username = response.username;
-      this.fullName = response.full_name;
+      this.id = response.id;
+      this.name = response.name;
       this.email = response.email;
+      this.updateFeeders();
     })
-    this.updateFeeders();
 
   }
 
