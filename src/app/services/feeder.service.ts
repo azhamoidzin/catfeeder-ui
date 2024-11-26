@@ -42,6 +42,10 @@ export class FeederService {
     })
   }
 
+  activateFeeder(feeder: Feeder) {
+    return this.communicatorService.instantFeed(feeder.id);
+  }
+
   getLogs(feeder: Feeder) {
     this.communicatorService.getLogs({ feeder_id: feeder.id }).subscribe((response: any) => {
       console.log(response);

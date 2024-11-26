@@ -49,11 +49,22 @@ export class FeederInstanceComponent {
   }
 
   feedClick() {
-    let snackBarRef = this.snackBar.open(
-      'Successfully fed '+ this.feeder.name + ' by ' + this.feeder.portion_meal, '', {
-        duration: 5 * 1000
+    this.feederService.activateFeeder(this.feeder).subscribe((response) => {
+      if (response) {
+        let message: string;
+        if (response.fed) {
+          message = 'Successfully fed '+ this.feeder.name + ' by ' + response.amount;
+        } else {
+          message = 'Failed to feed ' + this.feeder.name;
+        }
+        let snackBarRef = this.snackBar.open(
+          message, '', {
+            duration: 5 * 1000
+          }
+        );
       }
-    );
+    })
+
   }
 
   logsClick() {

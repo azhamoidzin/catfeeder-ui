@@ -44,3 +44,7 @@ export interface NewAdminMember extends NewFamilyMember {
   family_name: string;
 }
 
+export interface FeedResponse {
+  fed: boolean;
+  amount: number;
+}

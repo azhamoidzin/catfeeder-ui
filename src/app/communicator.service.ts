@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {FeederCreate, FeederUpdate} from './schemas';
-import {Feeder} from './schemas';
+import { Feeder, FeedResponse } from './schemas';
 
 export interface FeederBase {
   name: string;
@@ -102,6 +102,12 @@ export class CommunicatorService {
   downloadScheduleById(feeder: Feeder) {
     return this.httpClient.get(
       this.feedersURL + '/' + feeder.id + '/schedule', { responseType: 'blob' }
+    )
+  }
+
+  instantFeed(feederId: number) {
+    return this.httpClient.post<FeedResponse>(
+      this.feedersURL + '/' + feederId + '/instant_feed', {}
     )
   }
 
