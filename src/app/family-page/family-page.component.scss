@@ -51,3 +51,37 @@ body {
   color: red;
   font-size: 40px;
 }
+/* Add New Feeder Button */
+.open-dialog-div {
+  margin-top: 15px;
+  padding: 10px 15px;
+  background-color: #6200ea;
+  color: white;
+  text-align: center;
+  align-content: center;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+  max-width: 50%;
+
+}
+
+.open-dialog-div:hover {
+  background-color: #3700b3;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .profile-page {
+    padding: 15px;
+  }
+
+  .feeders h3 {
+    font-size: 18px;
+  }
+
+  .open-dialog-div {
+    font-size: 13px;
+  }
+}

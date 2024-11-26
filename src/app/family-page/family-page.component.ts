@@ -3,6 +3,7 @@ import { AuthService } from '../auth.service';
 import { CommunicatorService, FamilyMember } from '../communicator.service';
 import { MatDialog } from '@angular/material/dialog';
 import {UserDialogComponent} from '../user-dialog/user-dialog.component';
+import {User} from '../schemas';
 
 @Component({
   selector: 'app-family-page',
@@ -18,12 +19,16 @@ export class FamilyPageComponent {
   familyName: string = '';
   members: Array<FamilyMember> = [];
   adminId: number = -1;
+  myself: User;
 
   ngOnInit() {
     this.communicatorService.myFamily().subscribe((response) => {
       this.familyName = response.name;
       this.members = response.members;
       this.adminId = response.admin;
+    });
+    this.communicatorService.myProfile().subscribe((response) => {
+      this.myself = response;
     });
   }
 

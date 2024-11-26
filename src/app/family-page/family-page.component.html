@@ -1,6 +1,5 @@
-<a routerLink="/profile">Back to profile</a>
 <div class="header">
-  {{ this.familyName }}
+  Family "{{ this.familyName }}"
 </div>
 
 <table mat-table [dataSource]="members" class="mat-elevation-z8">
@@ -25,6 +24,6 @@
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
 
-<div class="header" (click)="addMember()">
-  Add new family member
+<div *ngIf="myself.family_admin" (click)="addMember()" class="open-dialog-div">
+  Add New
 </div>
