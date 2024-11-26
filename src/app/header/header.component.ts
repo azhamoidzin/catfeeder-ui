@@ -31,6 +31,12 @@ export class HeaderComponent {
       this.name = response.name;
       this.email = response.email;
     });
+    this.refreshStatus();
+    setInterval(()=> { this.refreshStatus() }, 10 * 1000);
+
+  }
+
+  refreshStatus() {
     this.communicatorService.familyStatus().subscribe((response) => {
       if (response) {
         this.total_feeders = response.total_feeders;
@@ -39,6 +45,5 @@ export class HeaderComponent {
         this.current_time = response.current_time;
       }
     });
-
   }
 }
