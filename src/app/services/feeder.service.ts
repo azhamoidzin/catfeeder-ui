@@ -4,7 +4,8 @@ import {BehaviorSubject, Observable} from 'rxjs';
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import {FeederDialogComponent} from '../feeder-components/feeder-edit-dialog/feeder-dialog.component';
 import {FeederCreateDialogComponent} from '../feeder-components/feeder-create-dialog/feeder-create-dialog.component';
-import {Feeder} from '../schemas';
+import {Feeder, Log} from '../schemas';
+import {LogsDialogComponent} from '../logs-dialog/logs-dialog.component';
 
 @Injectable({providedIn: 'root'})
 export class FeederService {
@@ -52,7 +53,15 @@ export class FeederService {
   }
 
   getLogs(feeder: Feeder) {
-    this.communicatorService.getLogs({ feeder_id: feeder.id }).subscribe((response: any) => {
+    this.communicatorService.getLogs({ feeder_id: feeder.id }).subscribe((response: Array<Log>) => {
+      const dialogConfig = new MatDialogConfig();
+      dialogConfig.panelClass = 'custom-dialog-container';
+      dialogConfig.data = response;
+      let dialogRef = this.dialog.open(LogsDialogComponent, dialogConfig);
+      dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+        }
+      })
     })
   }
 }

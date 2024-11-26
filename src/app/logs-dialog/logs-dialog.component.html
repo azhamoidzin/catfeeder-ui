@@ -1,1 +1,10 @@
-<p>logs-dialog works!</p>
+<h1 mat-dialog-title>{{ title }}</h1>
+<div mat-dialog-content>
+  <div class="middle-column">
+    <div class="row" *ngFor="let log of data"> <div class="registered-date"> {{log.registered_at}}</div> {{log.log}}</div>
+  </div>
+</div>
+
+<div mat-dialog-actions>
+  <button mat-button (click)="exportLogs()">{{buttonTitle}}</button>
+</div>
