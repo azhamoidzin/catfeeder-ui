@@ -45,7 +45,7 @@ export class FamilyPageComponent {
   }
 
   memberClick(row: FamilyMember) {
-    if (!this.myself.family_admin) {
+    if (!this.myself.family_admin || row.id == this.myself.id) {
       return;
     }
     this.router.navigate(['profile', row.id]);

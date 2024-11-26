@@ -28,6 +28,7 @@ export class LoginPageComponent {
     this.route.paramMap.subscribe(params => {
       const token = params.get('token');
       if (token) {
+        this.router.navigate(['login'])
         let dialogRef = this.dialog.open(ActivationDialogComponent);
         dialogRef.afterClosed().subscribe(result => {
           if (result) {
