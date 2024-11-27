@@ -39,6 +39,9 @@ interface GetLogsParams {
   user_id?: Nullable<number>;
 }
 
+export interface TimeTravel {
+  days: number;
+}
 @Injectable({'providedIn': 'root'})
 export class CommunicatorService {
   constructor(private httpClient: HttpClient) {
@@ -64,6 +67,8 @@ export class CommunicatorService {
   private setPasswordURL: string = this.serverURL + '/activate';
 
   private logsUrlBase: string = this.serverURL + '/logs';
+
+  private timeTravelURL: string = this.serverURL + '/time/travel';
 
 
   doLogin(email: string, password: string) {
@@ -169,6 +174,12 @@ export class CommunicatorService {
     }
     return this.httpClient.get<Array<Log>>(
       this.logsUrlBase, { params: params }
+    )
+  }
+
+  timeTravel(timeTravelBody: TimeTravel) {
+    return this.httpClient.post(
+      this.timeTravelURL, timeTravelBody
     )
   }
 }

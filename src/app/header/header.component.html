@@ -1,7 +1,7 @@
 <header>
   <!-- Left section: time and stats -->
   <div class="left-section">
-    <div class="time" id="current-time" matTooltip="Current server time" [matTooltipPosition]="'below'">
+    <div class="time" id="current-time" matTooltip="Current server time" [matTooltipPosition]="'below'" (click)="timeTravel()">
       {{ current_time }}
     </div>
     <div class="stats">

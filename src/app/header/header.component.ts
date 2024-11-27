@@ -46,4 +46,10 @@ export class HeaderComponent {
       }
     });
   }
+
+  timeTravel() {
+    this.communicatorService.timeTravel({days: 1}).subscribe((response) => {
+
+    })
+  }
 }
