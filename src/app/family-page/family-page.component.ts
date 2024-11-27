@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { CommunicatorService, FamilyMember } from '../communicator.service';
-import { MatDialog } from '@angular/material/dialog';
+import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import {UserDialogComponent} from '../user-dialog/user-dialog.component';
-import {User} from '../schemas';
+import {Log, User} from '../schemas';
 import {ActivatedRoute, Router} from '@angular/router';
+import {LogsDialogComponent} from "../logs-dialog/logs-dialog.component";
 
 @Component({
   selector: 'app-family-page',
@@ -32,6 +33,9 @@ export class FamilyPageComponent {
     });
     this.communicatorService.myProfile().subscribe((response) => {
       this.myself = response;
+      if (this.myself.family_admin) {
+        this.displayedColumns.push('logIcon');
+      }
     });
   }
 
@@ -49,5 +53,19 @@ export class FamilyPageComponent {
       return;
     }
     this.router.navigate(['profile', row.id]);
+  }
+
+  logsClick(event: MouseEvent, row: FamilyMember) {
+    event.stopPropagation();
+    this.communicatorService.getLogs({ user_id: row.id }).subscribe((response: Array<Log>) => {
+      const dialogConfig = new MatDialogConfig();
+      dialogConfig.panelClass = 'custom-dialog-container';
+      dialogConfig.data = response;
+      let dialogRef = this.dialog.open(LogsDialogComponent, dialogConfig);
+      dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+        }
+      })
+    })
   }
 }
