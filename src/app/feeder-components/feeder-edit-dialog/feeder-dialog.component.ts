@@ -45,7 +45,7 @@ export class FeederDialogComponent {
   }
 
   getItemsFromString(target: string) {
-    return target.split(/,\s*/);
+    return target.split(/,\s*/).map(item => {return item.trim()});
   }
 
   validateName() {
@@ -79,9 +79,9 @@ export class FeederDialogComponent {
   }
 
   validateTags(): boolean {
-    const lettersPattern = /^([a-zA-Z]+)(,\s*[a-zA-Z]+)*$/;
+    const lettersPattern = /^([a-zA-Z\d\s]+)(,\s*[a-zA-Z\d\s]+)*$/;
     if (this.inputData.tags && !lettersPattern.test(this.inputData.tags)) {
-      this.errorMsg = 'Tags must be words from alphabetical letters divided by comma';
+      this.errorMsg = 'Tags must be words from alphabetical letters, digits and spaces divided by comma';
       return false;
     } else {
       return true;

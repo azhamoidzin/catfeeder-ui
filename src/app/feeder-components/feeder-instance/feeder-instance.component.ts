@@ -39,8 +39,8 @@ export class FeederInstanceComponent {
     // Convert the current time to minutes
     const times = this.feeder.schedule || [];
     const now = new Date();
-    const currentHour = now.getHours();
-    const currentMinute = now.getMinutes();
+    const currentHour = now.getUTCHours();
+    const currentMinute = now.getUTCMinutes();
     const currentTotalMinutes = currentHour * 60 + currentMinute;
 
     // Convert each time in the array to minutes and filter for times in the future
