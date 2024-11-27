@@ -14,7 +14,7 @@
           <app-feeder-instance [feeder]="feeder"></app-feeder-instance>
         </li>
       </ul>
-      <div *ngIf="familyAdmin" (click)="addNewFeeder()" class="open-dialog-div">
+      <div *ngIf="myself.family_admin" (click)="addNewFeeder()" class="open-dialog-div">
         Add New
       </div>
     </div>

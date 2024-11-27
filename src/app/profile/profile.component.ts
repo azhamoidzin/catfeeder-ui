@@ -5,7 +5,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { FeederDialogComponent } from '../feeder-components/feeder-edit-dialog/feeder-dialog.component';
 import {FeederService} from '../services/feeder.service';
 import {Subject, takeUntil} from 'rxjs';
-import { Feeder } from '../schemas';
+import {Feeder, User} from '../schemas';
 import {ActivationDialogComponent} from '../activation-dialog/activation-dialog.component';
 import {ActivatedRoute, Router} from '@angular/router';
 
@@ -30,6 +30,7 @@ export class ProfileComponent {
   email: string = "";
   familyAdmin: boolean = false;
   feeders: Array<Feeder> = [];
+  myself: User;
 
   updateFeeders() {
     const newFeeders: Array<Feeder> = [];
@@ -71,7 +72,9 @@ export class ProfileComponent {
     this.communicatorService.familyStatus().subscribe((response) => {
       console.log(response);
     });
-
+    this.communicatorService.myProfile().subscribe((response) => {
+      this.myself = response;
+    });
   }
 
   ngOnDestroy() {
